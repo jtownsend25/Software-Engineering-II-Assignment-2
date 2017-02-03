@@ -1,6 +1,7 @@
 package com.chasebabbitt.hexgame.strategy;
 
 import com.badlogic.gdx.utils.Array;
+import com.chasebabbitt.hexgame.Duel;
 import com.chasebabbitt.hexgame.HexGame;
 import com.chasebabbitt.hexgame.card.Card;
 
@@ -12,7 +13,7 @@ public class DumbStrategy implements Strategy {
 	 * @param an object of type HexGame
 	 * @return returns a Move object that represents a suggested defense move
 	 */
-	public Move getMove(HexGame game) {
+	public Move getMove(Duel game) {
 		// TODO Auto-generated method stub
 		Card defendingcard=null;
 		Card attackingcard=null;

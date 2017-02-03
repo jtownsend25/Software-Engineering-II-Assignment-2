@@ -24,7 +24,7 @@ import com.chasebabbitt.hexgame.zones.PlayerField;
 public class HexGame extends Game {
 
 	SpriteBatch batch;
-	Texture img;
+	/*Texture img;
 	Card card;
 	EnemyField enemyfield;
 	PlayerField playerfield;
@@ -34,10 +34,13 @@ public class HexGame extends Game {
 	public static AssetManager manager;
 	Label defendersLabel;
 	Label attackersLabel;
-	Label moveLabel;
+	Label moveLabel;*/
+	
+	Duel duel;
 	
 	@Override
 	public void create () {
+		/*
 		manager = new AssetManager();
 		manager.load("Cards/Blasphemous Horror.jpg", Texture.class);
 		manager.load("Cards/Dire Spider.jpg", Texture.class);
@@ -62,7 +65,7 @@ public class HexGame extends Game {
 		manager.load("Cards/Zombie Vulture.jpg", Texture.class);
 		manager.load("Cards/Zombie.jpg", Texture.class);
 		manager.finishLoading();
-		batch = new SpriteBatch();
+		
 		
 		img = manager.get("Cards/Zombie.jpg", Texture.class);
 		
@@ -91,8 +94,10 @@ public class HexGame extends Game {
 		moveLabel.setFontScale(3);
 		moveLabel.setPosition(860, 350);
 		
-		
-
+		*/
+		batch = new SpriteBatch();
+		duel = new Duel();
+		duel.start();
 	}
 
 	@Override
@@ -100,102 +105,36 @@ public class HexGame extends Game {
 	 * render method for the game
 	 */
 	public void render () {
+		
 		if(Gdx.input.isKeyJustPressed(Input.Keys.A)){
 			System.out.println("A key pressed");
-			suggestedmove = strategy.getMove(this);
+			duel.suggestMove();
+			/*suggestedmove = strategy.getMove(this);
 			if(suggestedmove!=null){
 				suggestedmove.consoleDisplay();
-			}
+			}*/
 		}
 		if(Gdx.input.isKeyJustPressed(Input.Keys.Q)){
-			TestCase1();
+			duel.TestCase1();
 		}
 		if(Gdx.input.isKeyJustPressed(Input.Keys.W)){
-			TestCase2();
+			duel.TestCase2();
 		}
 		if(Gdx.input.isKeyJustPressed(Input.Keys.R)){
-			RandomCase();
+			duel.RandomCase();
 		}
+		/*
 		if(Gdx.input.isKeyJustPressed(Input.Keys.S)){
 			strategy= new DefenseStrategy();
 		}
 		if(Gdx.input.isKeyJustPressed(Input.Keys.D)){
 			strategy= new DumbStrategy();
-		}
+		}*/
+		
 		Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		batch.begin();
-		enemyfield.draw(batch);
-		playerfield.draw(batch);
-		defendersLabel.draw(batch,1);
-		attackersLabel.draw(batch,1);
-		if(suggestedmove!=null){
-			moveLabel.draw(batch, 1);
-			suggestedmove.draw(batch);
-		}
+		duel.draw(batch);
 		batch.end();
-	}
-	
-	public Array<Card> getAttackingCards(){
-		return enemyfield.getCards();
-	}
-	
-	public void removeAttackingCard(Card card){
-		enemyfield.removeCard(card);
-	}
-	
-	public Array<Card> getDefendingCards(){
-		return playerfield.getCards();
-	}
-	
-	public void removeDefendingCard(Card card){
-		playerfield.removeCard(card);
-	}
-	
-	//Creates a random test case consisting of 4 Enemy Cards and 4 Player Cards and Player's health is 10
-	public void RandomCase(){
-		suggestedmove = null;
-		playerfield.discard();
-		enemyfield.discard();
-		player.setPlayerHealth(10);
-		playerfield.addCard();
-		playerfield.addCard();
-		playerfield.addCard();
-		playerfield.addCard();
-		enemyfield.addCard();
-		enemyfield.addCard();
-		enemyfield.addCard();
-		enemyfield.addCard();
-		
-	}
-	
-	public void TestCase1(){
-		suggestedmove = null;
-		playerfield.discard();
-		enemyfield.discard();
-		player.setPlayerHealth(20);
-		playerfield.addCard(3);
-		playerfield.addCard(9);
-		enemyfield.addCard(2);
-		enemyfield.addCard(21);
-		
-	}
-	
-	/**
-	 * Sets a test case where the player is about to die
-	 * 
-	 */
-	public void TestCase2(){
-		suggestedmove = null;
-		playerfield.discard();
-		enemyfield.discard();
-		player.setPlayerHealth(1);
-		enemyfield.addCard(16);
-		playerfield.addCard(20);
-	}
-	
-	//Method for getting information about player's health
-	public int getPlayerHealth(){
-		return player.getPlayerHealth();
 	}
 }
