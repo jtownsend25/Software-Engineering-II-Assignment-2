@@ -1,13 +1,13 @@
 package com.chasebabbitt.hexgame.strategy;
 
 import com.badlogic.gdx.utils.Array;
-import com.chasebabbitt.hexgame.HexGame;
+import com.chasebabbitt.hexgame.Duel;
 import com.chasebabbitt.hexgame.card.Card;
 
 public class DefenseStrategy implements Strategy{
 
 	@Override
-	public Move getMove(HexGame game) {
+	public Move getMove(Duel game) {
 		Move move = null;
 		// TODO Auto-generated method stub
 		Card defendingcard=null;
